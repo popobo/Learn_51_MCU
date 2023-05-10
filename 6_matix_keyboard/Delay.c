@@ -1,11 +1,11 @@
 
-void Delay_ms(unsigned int ms)		//@12.000MHz
+void Delay_ms(unsigned int ms)		//@11.0592MHz
 {
 	unsigned char i, j;
 	while(ms--)
 	{
-		i = 2;
-		j = 239;
+        i = 2;
+        j = 199;
 		do
 		{
 			while (--j);
