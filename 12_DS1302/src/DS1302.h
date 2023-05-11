@@ -10,7 +10,18 @@
 #define DS1302_YEAR (0x8C)
 #define DS1302_WP (0x8E)
 
-extern unsigned char DS1302_Time[];
+enum
+{
+    DS1302_year,
+    DS1302_month,
+    DS1302_date,
+    DS1302_hour,
+    DS1302_minute,
+    DS1302_second,
+    DS1302_day
+};
+
+extern char DS1302_Time[];
 
 /**
 * @brief  init DS1302, set CE 0, set SCLK 0

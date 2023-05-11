@@ -8,7 +8,7 @@ sbit DS1302_CE = P3^5;
 #define DEC2BCD(x) ((x) / 10 * 16 + (x) % 10)
 #define BCD2DEC(x) ((x) / 16 * 10 + (x) % 16)
 
-unsigned char DS1302_Time[] = {23, 5, 11, 15, 05, 0, 4};
+char DS1302_Time[] = {23, 5, 11, 15, 05, 0, 4};
 
 void DS1302_Init(void)
 {
