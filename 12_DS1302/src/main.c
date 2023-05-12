@@ -132,7 +132,7 @@ void main()
 	}
 }
 
-void Timer0_Routine() interrupt 1
+void Timer0_Routine() interrupt TF0_VECTOR
 {
     static unsigned int t0_count = 0;
     TL0 = 0x66;		//设置定时初值
