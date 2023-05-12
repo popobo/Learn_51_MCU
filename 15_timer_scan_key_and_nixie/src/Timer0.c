@@ -22,6 +22,7 @@ void Timer0_Init()		//1毫秒@11.0592MHz
 /*
 void Timer0_Routine() interrupt TF0_VECTOR
 {
+    // 所有操作的耗时不要超过一个定时周期（这里是1ms），否则会导致中断无限嵌套
     static unsigned int t0_count = 0;
     TL0 = 0x66;		//设置定时初值
 	TH0 = 0xFC;		//设置定时初值

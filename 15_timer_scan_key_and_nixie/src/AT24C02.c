@@ -1,5 +1,6 @@
 #include "I2C.h"
 #include "Atmel/REGX52.H"
+#include "Delay.h"
 
 #define AT24C02_ADDRESS 0xA0
 
@@ -13,6 +14,7 @@ void AT24C02_WriteByte(unsigned char address, unsigned char byte)
     I2C_SendByte(byte);
     I2C_ReceiveAck();
     I2C_Stop();
+    Delay_ms(5);
 }
 
 unsigned char AT24C02_ReadByte(unsigned char address)
