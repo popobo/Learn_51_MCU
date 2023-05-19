@@ -12,4 +12,6 @@ enum
 
 unsigned char Key();
 
+void Key_Loop(void);
+
 #endif

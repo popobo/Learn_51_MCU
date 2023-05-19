@@ -5,7 +5,6 @@
 #define DS18B20_CONVERT_T 0x44
 #define DS18B20_READ_SCR 0xBE
 
-
 void DS18B20_CovertT(void)
 {
     OneWire_Init();

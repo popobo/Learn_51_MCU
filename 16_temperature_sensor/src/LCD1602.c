@@ -16,12 +16,12 @@ void LCD_Delay()
 {
 	unsigned char i, j;
 
-	i = 2;
-	j = 239;
-	do
-	{
-		while (--j);
-	} while (--i);
+    i = 2;
+    j = 199;
+    do
+    {
+        while (--j);
+    } while (--i);
 }
 
 /**

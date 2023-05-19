@@ -18,6 +18,7 @@ unsigned char OneWire_Init(void)
 {
     unsigned char i = 0;
     unsigned char ack_bit = 0;
+    EA = 0;
     OneWare_DQ = 1;
     OneWare_DQ = 0;
 	DELAY_500US;
@@ -27,30 +28,34 @@ unsigned char OneWire_Init(void)
     
     ack_bit = OneWare_DQ;
     DELAY_500US;
+    EA = 1;
     return ack_bit;
 }
 
 void OneWire_SendBit(unsigned char one_bit)
 {
     unsigned char i = 0;
-
+    EA = 0;
     OneWare_DQ = 0;
     DELAY_10US;
     OneWare_DQ = one_bit;
     DELAY_50US;
     OneWare_DQ = 1;
+    EA = 1;
 }
 
 unsigned char OneWire_ReceiveBit(void)
 {
     unsigned char one_bit = 0;
     unsigned char i = 0;
+    EA = 0;
     OneWare_DQ = 0;
     DELAY_5US;
     OneWare_DQ = 1;
     DELAY_5US;
     one_bit = OneWare_DQ;
     DELAY_50US;
+    EA = 1;
     return one_bit;
 }
 
