@@ -1,66 +1,49 @@
-/**
- * *********************************************
- * 
- * 8051 blink demo
- * 
- * PIN: P11
- * 
- * *********************************************
-*/
+#include "Atmel/REGX52.H"
+#include "Nixie.h"
+#include "Timer0.h"
+#include "Key.h"
 
-#include "REG52.H"
+sbit LED = P2^0;
 
-typedef unsigned char uint8_t;
-typedef unsigned int uint16_t;
-typedef unsigned long uint32_t;
-
-typedef signed char int8_t;
-typedef signed int int16_t;
-typedef signed long int32_t;
-
-#define EXT0_VECTOR 0  /* 0x03 external interrupt 0 */
-#define TIM0_VECTOR 1  /* 0x0b timer 0 */
-#define EXT1_VECTOR 2  /* 0x13 external interrupt 1 */
-#define TIM1_VECTOR 3  /* 0x1b timer 1 */
-#define UART0_VECTOR 4 /* 0x23 serial port 0 */
-
-// LED pin define
-sbit LED = P1 ^ 1;
+char counter = 0;
+unsigned char t0_count0;
+char compare;
+unsigned char key_num = 0;
 
 void main()
 {
-    // set T0 1ms
-    TMOD = 0x01;
-    TH0 = 0xFC;
-    TL0 = 0x18;
-
-    // enable interrupt
-    EA = 1;
-    ET0 = 1;
-
-    // led pin init
-    LED = 1;
-
-    // launch T0
-    TR0 = 1;
-
+    Timer0_Init();
+    compare = 40;
     while (1)
     {
-        // TODO
+        key_num = Key();
+        switch (key_num)
+        {
+        case Key_one:
+            compare+=20;
+            compare %= 100;
+            break;
+        case Key_two:
+            compare -= 20;
+            compare = compare < 0 ? 0 : compare;
+            break;
+        }
     }
+    
 }
 
-void TIM0_Handler() interrupt TIM0_VECTOR
+void Timer0_Routine() interrupt TF0_VECTOR
 {
-    static uint16_t count;
-
-    TH0 = 0xFC;
-    TL0 = 0x18;
-
-    // 500 ms
-    if (++count >= 500)
+	TL0 = 0xA4;		//设置定时初值
+	TH0 = 0xFF;		//设置定时初值
+    counter++;
+    counter %= 100;
+    if(counter < compare)
     {
-        count = 0;
-        LED = !LED;
+        LED = 0;
+    }
+    else
+    {
+        LED = 1;
     }
 }
