@@ -3,7 +3,7 @@
 #include "Timer0.h"
 #include "Key.h"
 
-sbit LED = P2^0;
+sbit Motor = P1^0;
 
 char counter = 0;
 unsigned char t0_count0;
@@ -13,7 +13,8 @@ unsigned char key_num = 0;
 void main()
 {
     Timer0_Init();
-    compare = 40;
+    compare = 0;
+    Motor = 0;
     while (1)
     {
         key_num = Key();
@@ -38,12 +39,12 @@ void Timer0_Routine() interrupt TF0_VECTOR
 	TH0 = 0xFF;		//设置定时初值
     counter++;
     counter %= 100;
-    if(counter < compare)
+    if(counter <= compare)
     {
-        LED = 0;
+        Motor = 1;
     }
     else
     {
-        LED = 1;
+        Motor = 0;
     }
 }
