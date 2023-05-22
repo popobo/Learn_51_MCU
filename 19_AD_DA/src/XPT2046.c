@@ -33,6 +33,10 @@ unsigned int XPT2046_ReadAD(unsigned char command)
     }
 
     XPT2046_CS = 1;
+    if (command & (0x08))
+    {
+        return value >> 8;
+    }
 
-    return value >> 8;
+    return value >> 4;
 }
